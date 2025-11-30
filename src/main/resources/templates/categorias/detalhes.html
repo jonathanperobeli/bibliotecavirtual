@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${categoria.nome} + ' - Biblioteca Digital'">Detalhes da Categoria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary-color: #2c3e50; --secondary-color: #3498db; }
+        .navbar { background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); }
+        .card { border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 0.75rem; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); }
+        .book-cover { height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; border-radius: 0.75rem 0.75rem 0 0; }
+        .book-cover i { font-size: 3rem; color: rgba(255,255,255,0.7); }
+        .categoria-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 0.75rem; margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-book"></i> Biblioteca Digital</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/livros}">Livros</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/categorias}">Categorias</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/autores}">Autores</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Início</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/categorias}">Categorias</a></li>
+                <li class="breadcrumb-item active" th:text="${categoria.nome}">Categoria</li>
+            </ol>
+        </nav>
+
+        <!-- Header da Categoria -->
+        <div class="categoria-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2><i class="bi bi-tag"></i> <span th:text="${categoria.nome}">Categoria</span></h2>
+                    <p th:if="${categoria.descricao}" th:text="${categoria.descricao}" class="mb-0">Descrição</p>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/categorias/editar/{id}(id=${categoria.id})}" class="btn btn-light">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Livros da Categoria -->
+        <h4 class="mb-3">
+            <i class="bi bi-book"></i> Livros nesta categoria
+            <span class="badge bg-primary" th:text="${#lists.size(livros)}">0</span>
+        </h4>
+
+        <div class="row g-4" th:if="${not #lists.isEmpty(livros)}">
+            <div class="col-md-4 col-lg-3" th:each="livro : ${livros}">
+                <div class="card h-100">
+                    <div class="book-cover">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${livro.titulo}">Título</h5>
+                        <p class="text-muted small" th:text="${livro.autoresNomes}">Autor</p>
+                        <span class="badge" th:classappend="${livro.disponivel} ? 'bg-success' : 'bg-danger'"
+                              th:text="${livro.disponivel} ? 'Disponível' : 'Indisponível'">Status</span>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a th:href="@{/livros/{id}(id=${livro.id})}" class="btn btn-sm btn-outline-primary w-100">
+                            <i class="bi bi-eye"></i> Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(livros)}" class="text-center py-5">
+            <i class="bi bi-inbox display-1 text-muted"></i>
+            <h4 class="mt-3">Nenhum livro nesta categoria</h4>
+            <a th:href="@{/livros}" class="btn btn-primary mt-2">
+                <i class="bi bi-search"></i> Ver todos os livros
+            </a>
+        </div>
+
+        <div class="mt-4">
+            <a th:href="@{/categorias}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Voltar às Categorias
+            </a>
+        </div>
+    </div>
+
+    <footer class="py-3 mt-4 text-center text-white" style="background-color: #2c3e50;">
+        <p class="mb-0"><i class="bi bi-book"></i> Biblioteca Digital &copy; 2024</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros Disponíveis - Biblioteca Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary-color: #2c3e50; --secondary-color: #3498db; }
+        .navbar { background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); }
+        .card { border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-radius: 0.75rem; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .book-cover { height: 200px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); display: flex; align-items: center; justify-content: center; border-radius: 0.75rem 0.75rem 0 0; }
+        .book-cover i { font-size: 4rem; color: rgba(255,255,255,0.7); }
+        .badge-disponivel { background-color: #28a745; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-book"></i> Biblioteca Digital</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/livros}">Livros</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/categorias}">Categorias</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/autores}">Autores</a></li>
+                </ul>
+                <ul class="navbar-nav" sec:authorize="isAuthenticated()">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                </ul>
+                <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> Entrar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- Cabeçalho -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2><i class="bi bi-check-circle text-success"></i> Livros Disponíveis</h2>
+                <p class="text-muted mb-0" th:text="${#lists.size(livros)} + ' livros disponíveis para empréstimo'">0 livros</p>
+            </div>
+            <div>
+                <a th:href="@{/livros}" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Voltar ao Catálogo
+                </a>
+            </div>
+        </div>
+
+        <!-- Lista de Livros Disponíveis -->
+        <div class="row g-4" th:if="${not #lists.isEmpty(livros)}">
+            <div class="col-md-4 col-lg-3" th:each="livro : ${livros}">
+                <div class="card h-100">
+                    <div class="book-cover">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${livro.titulo}">Título</h5>
+                        <p class="card-text text-muted small">
+                            <i class="bi bi-person"></i> 
+                            <span th:if="${livro.autoresNomes != null and not livro.autoresNomes.isEmpty()}" 
+                                  th:text="${livro.autoresNomes}">Autor</span>
+                            <span th:if="${livro.autoresNomes == null or livro.autoresNomes.isEmpty()}">Autor desconhecido</span>
+                        </p>
+                        <p class="card-text small">
+                            <span class="badge badge-disponivel">
+                                <i class="bi bi-check-circle"></i> Disponível
+                            </span>
+                            <span th:if="${livro.categoriaNome != null}" class="badge bg-secondary ms-1" 
+                                  th:text="${livro.categoriaNome}">Categoria</span>
+                        </p>
+                        <p class="card-text small text-muted" th:if="${livro.quantidadeDisponivel != null}">
+                            <i class="bi bi-stack"></i> 
+                            <span th:text="${livro.quantidadeDisponivel}">0</span> exemplar(es) disponível(is)
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a th:href="@{/livros/{id}(id=${livro.id})}" class="btn btn-sm btn-outline-primary w-100">
+                            <i class="bi bi-eye"></i> Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensagem quando não há livros disponíveis -->
+        <div th:if="${#lists.isEmpty(livros)}" class="text-center py-5">
+            <i class="bi bi-inbox display-1 text-muted"></i>
+            <h4 class="mt-3">Nenhum livro disponível no momento</h4>
+            <p class="text-muted">Todos os livros estão emprestados. Volte mais tarde!</p>
+            <a th:href="@{/livros}" class="btn btn-primary mt-3">
+                <i class="bi bi-arrow-left"></i> Ver Todo o Catálogo
+            </a>
+        </div>
+    </div>
+
+    <footer class="py-3 mt-4 text-center text-white" style="background-color: #2c3e50;">
+        <p class="mb-0"><i class="bi bi-book"></i> Biblioteca Digital &copy; 2024</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
