@@ -105,8 +105,8 @@ src/main/java/com/biblioteca/
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/biblioteca-digital.git
-cd biblioteca-digital
+git clone https://github.com/seu-usuario/bibliotecadigital.git
+cd bibliotecadigital
 ```
 
 2. Execute com Maven:
@@ -186,14 +186,10 @@ Execute os testes com:
 mvn test
 ```
 
-## 📝 Licença
-
-Este projeto foi desenvolvido para fins acadêmicos.
-
-## 👨‍💻 Autor
-
-Desenvolvido como projeto acadêmico para a disciplina de Desenvolvimento Web com Spring Boot.
+## 👨‍💻 Autores
+- Jonathan Campos Machado
+- Patrick Yokoyama Kloth
 
 ---
 
-⭐ Se este projeto foi útil para você, considere dar uma estrela!
+
