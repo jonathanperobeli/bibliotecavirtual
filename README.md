@@ -105,8 +105,8 @@ src/main/java/com/biblioteca/
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/biblioteca-digital.git
-cd biblioteca-digital
+git clone https://github.com/seu-usuario/biblioteca--digital.git
+cd biblioteca--digital
 ```
 
 2. Execute com Maven:
