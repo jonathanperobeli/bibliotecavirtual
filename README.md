@@ -190,10 +190,10 @@ mvn test
 
 Este projeto foi desenvolvido para fins acadêmicos.
 
-## 👨‍💻 Autor
-
-Desenvolvido como projeto acadêmico para a disciplina de Desenvolvimento Web com Spring Boot.
+## 👨‍💻 Autores
+Jonathan Campos Machado
+Patrick Yokoyama Kloth
 
 ---
 
-⭐ Se este projeto foi útil para você, considere dar uma estrela!
+
