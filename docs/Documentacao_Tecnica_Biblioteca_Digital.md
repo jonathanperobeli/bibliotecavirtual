@@ -837,7 +837,7 @@ O desenvolvimento deste projeto proporcionou experiência prática em:
 
 ## Repositório
 
-🔗 **GitHub:** https://github.com/jonathanperobeli/biblioteca-virtual
+🔗 **GitHub:** https://github.com/jonathanperobeli/bibliotecavirtual
 
 ---
 
