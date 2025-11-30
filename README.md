@@ -186,13 +186,9 @@ Execute os testes com:
 mvn test
 ```
 
-## 📝 Licença
-
-Este projeto foi desenvolvido para fins acadêmicos.
-
 ## 👨‍💻 Autores
-Jonathan Campos Machado
-Patrick Yokoyama Kloth
+- Jonathan Campos Machado
+- Patrick Yokoyama Kloth
 
 ---
 
