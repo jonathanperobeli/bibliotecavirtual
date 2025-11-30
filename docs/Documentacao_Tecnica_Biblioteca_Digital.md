@@ -8,8 +8,8 @@
 **Data:** Novembro de 2025  
 
 **Integrantes do Grupo:**
-- Jonathan Perobeli
-- Patrick Yokoyama Kloth
+- Jonathan Perobeli.
+- Patrick Yokoyama Kloth.
 
 ---
 
