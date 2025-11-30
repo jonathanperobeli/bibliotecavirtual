@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 100px 0;
+        }
+        .stat-card {
+            transition: transform 0.2s;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="bi bi-book"></i> Biblioteca Digital</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/livros}">Livros</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/categorias}">Categorias</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/autores}">Autores</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> Entrar</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2" th:href="@{/register}">Cadastrar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold"><i class="bi bi-book"></i> Biblioteca Digital</h1>
+            <p class="lead">Seu portal de conhecimento. Explore, empreste e descubra novos mundos através da leitura.</p>
+            <div class="mt-4">
+                <a th:href="@{/livros}" class="btn btn-light btn-lg me-2"><i class="bi bi-search"></i> Explorar Livros</a>
+                <a th:href="@{/register}" class="btn btn-outline-light btn-lg">Criar Conta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card stat-card text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-book display-4 text-primary"></i>
+                            <h2 class="mt-3" th:text="${stats.totalLivros}">0</h2>
+                            <p class="text-muted">Livros Cadastrados</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-people display-4 text-success"></i>
+                            <h2 class="mt-3" th:text="${stats.totalUsuarios}">0</h2>
+                            <p class="text-muted">Usuários Ativos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-person-badge display-4 text-info"></i>
+                            <h2 class="mt-3" th:text="${stats.totalAutores}">0</h2>
+                            <p class="text-muted">Autores</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-tags display-4 text-warning"></i>
+                            <h2 class="mt-3" th:text="${stats.totalCategorias}">0</h2>
+                            <p class="text-muted">Categorias</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Por que usar nossa Biblioteca?</h2>
+            <div class="row g-4">
+                <div class="col-md-4 text-center">
+                    <div class="feature-icon mb-3"><i class="bi bi-search"></i></div>
+                    <h4>Busca Inteligente</h4>
+                    <p class="text-muted">Encontre livros por título, autor, categoria ou ISBN de forma rápida e fácil.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="feature-icon mb-3"><i class="bi bi-journal-bookmark"></i></div>
+                    <h4>Empréstimos Online</h4>
+                    <p class="text-muted">Reserve e gerencie seus empréstimos diretamente pela plataforma.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="feature-icon mb-3"><i class="bi bi-bell"></i></div>
+                    <h4>Notificações</h4>
+                    <p class="text-muted">Receba lembretes sobre devoluções e novidades da biblioteca.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center text-white" style="background-color: #2c3e50;">
+        <div class="container">
+            <p class="mb-0"><i class="bi bi-book"></i> Sistema de Biblioteca Digital &copy; 2025</p>
+            <small>Jonathan Campos Machado | Patrick Yokoyama Kloth</small>
+            <div class="mt-2">
+                <a href="/swagger-ui.html" class="text-white-50 me-3"><i class="bi bi-file-code"></i> API Docs</a>
+                <a href="/h2-console" class="text-white-50"><i class="bi bi-database"></i> H2 Console</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
