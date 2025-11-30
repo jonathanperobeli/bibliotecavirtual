@@ -3,16 +3,13 @@
 
 ---
 
-**Disciplina:** Desenvolvimento de Aplicações Web  
-**Instituição:** [Nome da Instituição]  
+**Disciplina:** Linguagem de Programação 2
+**Instituição:** IFSP - SPO 
 **Data:** Novembro de 2025  
 
 **Integrantes do Grupo:**
 - Jonathan Perobeli
-- [Nome do Integrante 2]
-- [Nome do Integrante 3]
-- [Nome do Integrante 4]
-
+- Patrick Yokoyama
 ---
 
 ## Sumário
