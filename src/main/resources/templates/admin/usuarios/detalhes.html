@@ -55,10 +55,19 @@
                         <a th:href="@{/admin/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-outline-warning">
                             <i class="bi bi-pencil"></i> Editar
                         </a>
-                        <form th:action="@{/admin/usuarios/{id}/toggle-status(id=${usuario.id})}" method="post">
+                        <!-- Não mostrar toggle e excluir para o admin principal -->
+                        <form th:if="${usuario.email != 'admin@biblioteca.com'}"
+                              th:action="@{/admin/usuarios/{id}/toggle-status(id=${usuario.id})}" method="post">
                             <button type="submit" class="btn btn-outline-info w-100"
                                     th:text="${usuario.ativo} ? 'Desativar Usuário' : 'Ativar Usuário'">
                                 Toggle
+                            </button>
+                        </form>
+                        <form th:if="${usuario.email != 'admin@biblioteca.com'}"
+                              th:action="@{/admin/usuarios/excluir/{id}(id=${usuario.id})}" method="post"
+                              onsubmit="return confirm('Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.');">
+                            <button type="submit" class="btn btn-outline-danger w-100">
+                                <i class="bi bi-trash"></i> Excluir Usuário
                             </button>
                         </form>
                     </div>

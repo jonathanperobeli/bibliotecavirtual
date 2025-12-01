@@ -88,11 +88,21 @@
                                            class="btn btn-outline-warning" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form th:action="@{/admin/usuarios/{id}/toggle-status(id=${usuario.id})}" 
+                                        <!-- Não mostrar toggle e excluir para o admin principal -->
+                                        <form th:if="${usuario.email != 'admin@biblioteca.com'}"
+                                              th:action="@{/admin/usuarios/{id}/toggle-status(id=${usuario.id})}" 
                                               method="post" class="d-inline">
                                             <button type="submit" class="btn btn-outline-info" 
                                                     th:title="${usuario.ativo} ? 'Desativar' : 'Ativar'">
                                                 <i th:class="${usuario.ativo} ? 'bi bi-toggle-on' : 'bi bi-toggle-off'"></i>
+                                            </button>
+                                        </form>
+                                        <form th:if="${usuario.email != 'admin@biblioteca.com'}"
+                                              th:action="@{/admin/usuarios/excluir/{id}(id=${usuario.id})}" 
+                                              method="post" class="d-inline"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
+                                            <button type="submit" class="btn btn-outline-danger" title="Excluir">
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
                                     </div>

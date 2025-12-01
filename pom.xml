@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.1.5</version>
         <relativePath/>
     </parent>
     
@@ -19,7 +19,6 @@
     
     <properties>
         <java.version>17</java.version>
-        <springdoc.version>2.3.0</springdoc.version>
     </properties>
     
     <dependencies>
@@ -73,13 +72,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        
-        <!-- OpenAPI / Swagger -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc.version}</version>
         </dependency>
         
         <!-- PDF Generation -->

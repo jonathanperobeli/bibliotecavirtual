@@ -84,6 +84,13 @@ public class UsuarioController {
     @PostMapping("/excluir/{id}")
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
+            // Verificar se é o admin principal
+            UsuarioDTO usuario = usuarioService.buscarPorId(id).orElseThrow();
+            if ("admin@biblioteca.com".equals(usuario.getEmail())) {
+                redirectAttributes.addFlashAttribute("erro", "Não é possível excluir o usuário administrador principal!");
+                return "redirect:/admin/usuarios";
+            }
+            
             usuarioService.deletar(id);
             redirectAttributes.addFlashAttribute("mensagem", "Usuário excluído com sucesso!");
         } catch (Exception e) {
@@ -92,14 +99,24 @@ public class UsuarioController {
         return "redirect:/admin/usuarios";
     }
 
-    @PostMapping("/ativar/{id}")
-    public String ativarDesativar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        usuarioService.buscarPorId(id).ifPresent(usuario -> {
-            usuario.setAtivo(!usuario.getAtivo());
-            usuarioService.atualizar(id, usuario);
-            String acao = usuario.getAtivo() ? "ativado" : "desativado";
-            redirectAttributes.addFlashAttribute("mensagem", "Usuário " + acao + " com sucesso!");
-        });
+    @PostMapping("/{id}/toggle-status")
+    public String toggleStatus(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            usuarioService.buscarPorId(id).ifPresent(usuario -> {
+                // Verificar se é o admin principal
+                if ("admin@biblioteca.com".equals(usuario.getEmail())) {
+                    redirectAttributes.addFlashAttribute("erro", "Não é possível desativar o usuário administrador principal!");
+                    return;
+                }
+                
+                usuario.setAtivo(!usuario.getAtivo());
+                usuarioService.atualizar(id, usuario);
+                String acao = usuario.getAtivo() ? "ativado" : "desativado";
+                redirectAttributes.addFlashAttribute("mensagem", "Usuário " + acao + " com sucesso!");
+            });
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("erro", "Erro ao alterar status do usuário: " + e.getMessage());
+        }
         return "redirect:/admin/usuarios";
     }
 }

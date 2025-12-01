@@ -111,10 +111,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void deletar(Long id) {
-        if (!usuarioRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Usuário", id);
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuário", id));
+        
+        // Não permitir excluir o admin principal
+        if ("admin@biblioteca.com".equals(usuario.getEmail())) {
+            throw new BusinessException("Não é possível excluir o usuário administrador principal!");
         }
-        usuarioRepository.deleteById(id);
+        
+        try {
+            usuarioRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessException("Não é possível excluir usuário com empréstimos ativos!");
+        }
     }
 
     @Override

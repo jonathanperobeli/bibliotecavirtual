@@ -38,25 +38,20 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 // Recursos públicos
-                .requestMatchers(
-                    "/",
-                    "/home",
-                    "/login",
-                    "/register",
-                    "/css/**",
-                    "/js/**",
-                    "/images/**",
-                    "/webjars/**",
-                    "/h2-console/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html",
-                    "/api-docs/**",
-                    "/v3/api-docs/**"
-                ).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/home")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                 // Endpoints públicos da API
-                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
                 // Administração - apenas ADMIN
-                .requestMatchers("/admin/**", "/api/admin/**").hasRole("ADMIN")
+                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                .requestMatchers(new AntPathRequestMatcher("/api/admin/**")).hasRole("ADMIN")
                 // Demais requisições precisam de autenticação
                 .anyRequest().authenticated()
             )
@@ -81,7 +76,8 @@ public class SecurityConfig {
             )
             // Para o H2 Console funcionar
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**", "/api/**")
+                .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                .ignoringRequestMatchers(new AntPathRequestMatcher("/api/**"))
             )
             .headers(headers -> headers
                 .frameOptions(frame -> frame.sameOrigin())
