@@ -13,7 +13,6 @@ Sistema completo de gerenciamento de biblioteca digital desenvolvido com Spring 
 - ✅ **CRUD Completo** para Livros, Autores, Categorias, Usuários e Empréstimos
 - 🔐 **Autenticação e Autorização** com Spring Security (roles ADMIN/USER)
 - 📊 **Dashboard** com estatísticas em tempo real
-- 📄 **Relatórios em PDF** usando iTextPDF
 - 🔍 **API RESTful** documentada com Swagger/OpenAPI
 - 🎨 **Interface Web** responsiva com Thymeleaf e Bootstrap 5
 
