@@ -10,7 +10,7 @@ Sistema completo de gerenciamento de biblioteca digital desenvolvido com Spring 
 
 ### Funcionalidades Principais
 
-- ✅ **CRUD Completo** para Livros, Autores, Categorias, Usuários e Empréstimos
+- ✅ **CRUD Completo** para Livros, Autores, Usuários e Empréstimos
 - 🔐 **Autenticação e Autorização** com Spring Security (roles ADMIN/USER)
 - 📊 **Dashboard** com estatísticas em tempo real
 - 🔍 **API RESTful** documentada com Swagger/OpenAPI
@@ -35,7 +35,6 @@ Sistema completo de gerenciamento de biblioteca digital desenvolvido com Spring 
 
 ### Documentação e Relatórios
 - **springdoc-openapi** - Swagger UI
-- **iTextPDF** - Geração de relatórios PDF
 
 ### Ferramentas
 - **Maven** - Gerenciamento de dependências
@@ -149,11 +148,11 @@ mvn spring-boot:run
 
 ## 📊 Relatórios Disponíveis
 
-- Relatório de Livros (PDF)
-- Relatório de Empréstimos (PDF)
-- Relatório de Empréstimos Atrasados (PDF)
-- Relatório de Usuários (PDF)
-- Relatório do Dashboard (PDF)
+- Relatório de Livros 
+- Relatório de Empréstimos 
+- Relatório de Empréstimos Atrasados 
+- Relatório de Usuários 
+- Relatório do Dashboard 
 
 ## 🔧 Configuração
 
